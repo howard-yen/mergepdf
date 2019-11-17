@@ -18,3 +18,7 @@ python merge.py
 ```
 
 Enter the directory with the pdf files and you're good to go!
+
+## Acknowledgement
+
+Thanks to my good friend Shakeel Samsudeen for making this in the frist place.
