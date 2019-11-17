@@ -1,12 +1,16 @@
 import os
 from PyPDF2 import PdfFileMerger
+import re
 
-files = [f for f in os.listdir() if f.endswith(".pdf")]
+def merge(dir):
+    merger = PdfFileMerger()
+    for f in os.listdir(dir):
+        if(f.endswith('.pdf')):
+            with open(f, 'rb') as f:
+                merger.append(f)
 
-merger = PdfFileMerger()
+    with open(dir + "mergedPDFs.pdf", "wb") as f:
+        merger.write(f)
 
-for f in files:
-    merger.append(open(f, 'rb'))
-
-with open("result.pdf", "wb") as fout:
-    merger.write(fout)
+dir = input('Directory(empty for current): ')
+merge(dir)
