@@ -6,19 +6,21 @@ def merge(dir):
     writer = PdfFileWriter()
     for file in os.listdir(dir):
         if(file.endswith('.pdf')):
-            print(str(file))
-            print(str(dir + "\\" + file))
-            reader = PdfFileReader(file)
+            print(f'===adding {file}---')
+            loc = os.path.join(dir, file)
+            reader = PdfFileReader(loc)
             for page in range(reader.getNumPages()):
                 writer.addPage(reader.getPage(page))
 
-
-    with open(dir + "\\" + "mergedPDFs.pdf", "wb") as f:
+    with open(os.path.join(dir, 'merged.pdf'), "wb") as f:
         writer.write(f)
 
-dir = input('Directory(empty for current): ')
-if(dir == ''):
-    dir = '.'
+if __name__ == "__main__":
+    dir = input('Directory(empty for current): ')
+    if(dir == ''):
+        dir = os.getcwd()
+    while(not os.path.exists(dir)):
+        input("Directory not found, please try again: ")
 
-merge(dir)
-print('---done---')
+    merge(dir)
+    print('---done---')
