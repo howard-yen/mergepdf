@@ -3,22 +3,21 @@ from PyPDF2 import PdfFileMerger, PdfFileWriter, PdfFileReader
 import re
 
 def merge(dir):
-    writer = PdfFileWriter()
-    for file in os.listdir(dir):
+    merger = PdfFileMerger(strict=False)
+    files = os.listdir(dir)
+    files.sort()
+    for file in files:
         if(file.endswith('.pdf')):
             print(str(file))
-            print(str(dir + "\\" + file))
-            reader = PdfFileReader(file)
-            for page in range(reader.getNumPages()):
-                writer.addPage(reader.getPage(page))
+            merger.append(os.path.join(dir, file))
 
+    with open(os.path.join(dir, "allLectures.pdf"), "wb") as f:
+        merger.write(f)
 
-    with open(dir + "\\" + "mergedPDFs.pdf", "wb") as f:
-        writer.write(f)
+if __name__ == "__main__":
+    dir = input('Directory(empty for current): ')
+    if(dir == ''):
+        dir = '.'
 
-dir = input('Directory(empty for current): ')
-if(dir == ''):
-    dir = '.'
-
-merge(dir)
-print('---done---')
+    merge(dir)
+    print('---done---')
