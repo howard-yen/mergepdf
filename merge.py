@@ -17,7 +17,9 @@ def merge(dir):
 if __name__ == "__main__":
     dir = input('Directory(empty for current): ')
     if(dir == ''):
-        dir = '.'
+        dir = os.getcwd()
+    while(not os.path.exists(dir)):
+        input("Directory not found, please try again: ")
 
     merge(dir)
     print('---done---')
