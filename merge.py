@@ -19,7 +19,7 @@ if __name__ == "__main__":
     if(dir == ''):
         dir = os.getcwd()
     while(not os.path.exists(dir)):
-        input("Directory not found, please try again: ")
+        dir = input("Directory not found, please try again: ")
 
     merge(dir)
     print('---done---')
